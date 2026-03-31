@@ -1,0 +1,73 @@
+tasks:
+- key: install
+  run:
+    interpreter:
+    - /bin/bash
+    - -eo
+    - pipefail
+    contents: '# GHA action: actions/checkout@v3 (replace with equivalent shell commands)
+
+      # GHA action: actions/setup-node@v3 (replace with equivalent shell commands)
+
+      # GHA action: actions/cache@v3 (replace with equivalent shell commands)
+
+      npm install'
+  machine:
+    os: ubuntu22.04-medium
+  cache:
+  - paths:
+    - node_modules
+    key: ${{ checksum('node_modules') }}
+- key: lint
+  run:
+    interpreter:
+    - /bin/bash
+    - -eo
+    - pipefail
+    contents: '# GHA action: actions/checkout@v3 (replace with equivalent shell commands)
+
+      npm run lint'
+  machine:
+    os: ubuntu22.04-medium
+  after:
+  - install
+- key: test
+  run:
+    interpreter:
+    - /bin/bash
+    - -eo
+    - pipefail
+    contents: '# GHA action: actions/checkout@v3 (replace with equivalent shell commands)
+
+      npm test'
+  machine:
+    os: ubuntu22.04-medium
+  after:
+  - install
+- key: build
+  run:
+    interpreter:
+    - /bin/bash
+    - -eo
+    - pipefail
+    contents: '# GHA action: actions/checkout@v3 (replace with equivalent shell commands)
+
+      npm run build'
+  machine:
+    os: ubuntu22.04-medium
+  after:
+  - lint
+  - test
+- key: deploy
+  run:
+    interpreter:
+    - /bin/bash
+    - -eo
+    - pipefail
+    contents: '# GHA action: actions/checkout@v3 (replace with equivalent shell commands)
+
+      ./scripts/deploy.sh'
+  machine:
+    os: ubuntu22.04-medium
+  after:
+  - build
