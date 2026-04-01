@@ -35,4 +35,4 @@ pip3 install pyyaml
 ```
 
 ---
-Built by Jafar — Cincinnati, OH (45 min from RWX HQ in Columbus)
+Built by Jafar - Cincinnati, OH
